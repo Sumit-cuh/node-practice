@@ -1,6 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const port = process.env.PORT||3000;
 var app = express();
 
 hbs.registerHelper('getCurrentYear',()=>{
@@ -15,9 +16,9 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.use((req,res,next)=>{
-    res.render('maintenance.hbs');
-});
+    app.use((req,res,next)=>{
+        res.render('maintenance.hbs');
+    });
 hbs.registerHelper('screamIt',(text)=>{
     return text.toUpperCase();
 });
@@ -40,5 +41,5 @@ app.get('/',function(req,res){
 app.get('/bad',function(req,res){
     res.send('Unable to handle request...');
 });
-app.listen(3000);
-console.log('server is 3000...');
+app.listen(port);
+console.log(`server is running on ${port}`);
